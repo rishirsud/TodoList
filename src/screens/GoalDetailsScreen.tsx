@@ -1,17 +1,14 @@
 import { View, Text } from "react-native";
 
 const GoalDetailsScreen = ({ route }: { route: any }) => {
-  //   const { goalId } = route.params;
-  //   const goal = useGoal(goalId);
-  //   return (
-  //     <View>
-  //       <Text>{goal.title}</Text>
-  //       <Text>{goal.description}</Text>
-  //     </View>
-  //   );
+  const { goalData } = route.params;
   return (
     <View>
-      <Text>Goal Details Screen</Text>
+      <Text>{goalData.title}</Text>
+      <Text>{goalData.completed as string} booleans</Text>
+      <Text>{goalData.deadline}</Text>
+      <Text>{goalData.description}</Text>
+      <Text>{goalData.id}</Text>
     </View>
   );
 };

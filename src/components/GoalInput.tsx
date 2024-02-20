@@ -1,22 +1,37 @@
 import { useState } from "react";
 import { Button, Modal, StyleSheet, TextInput, View } from "react-native";
+import uuid from "react-native-uuid";
+
+interface GoalProps {
+  title: string;
+  description: string;
+  id: string;
+  deadline: string;
+  completed: boolean;
+}
 
 interface GoalInputProps {
   visible: boolean;
-  onAddGoal: (goalText: string) => void;
+  onAddGoal: (goalText: GoalProps) => void;
   onCancel: () => void;
 }
 
 const GoalInput = ({ visible, onAddGoal, onCancel }: GoalInputProps) => {
-  const [enteredGoalText, setEnteredGoalText] = useState("");
-
-  const goalInputHandler = (enteredText: any) => {
-    setEnteredGoalText(enteredText);
-  };
+  const [goalTitle, setGoalTitle] = useState<string>("");
+  const [goalDescription, setGoalDescription] = useState<string>("");
+  const [goalDeadline, setGoalDeadline] = useState<string>("");
 
   const addGoalHandler = () => {
-    onAddGoal(enteredGoalText);
-    setEnteredGoalText("");
+    onAddGoal({
+      title: goalTitle,
+      description: goalDescription,
+      id: uuid.v4().toString(),
+      deadline: goalDeadline,
+      completed: false,
+    });
+    setGoalTitle("");
+    setGoalDescription("");
+    setGoalDeadline("");
   };
 
   return (
@@ -24,9 +39,23 @@ const GoalInput = ({ visible, onAddGoal, onCancel }: GoalInputProps) => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
-          placeholder="Your course goal!"
-          onChangeText={goalInputHandler}
-          value={enteredGoalText}
+          placeholder="Goal Title"
+          onChangeText={setGoalTitle}
+          value={goalTitle}
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Deadline"
+          onChangeText={setGoalDeadline}
+          value={goalDeadline}
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Description"
+          onChangeText={setGoalDescription}
+          value={goalDescription}
+          multiline
+          numberOfLines={4}
         />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
@@ -51,11 +80,6 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#311b6b",
   },
-  image: {
-    width: 100,
-    height: 100,
-    margin: 20,
-  },
   textInput: {
     borderWidth: 1,
     borderColor: "#e4d0ff",
@@ -64,6 +88,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     width: "100%",
     padding: 16,
+    marginBottom: 8,
   },
   buttonContainer: {
     marginTop: 16,

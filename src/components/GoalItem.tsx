@@ -1,22 +1,37 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
+import GoalStatus from "./GoalStatus";
 
 interface GoalItemProps {
-  text: string;
+  title: string;
   id: string;
   onDeleteItem: (id: string) => void;
   navigation?: any;
+  goalData: any;
 }
 
-const GoalItem = ({ text, id, onDeleteItem, navigation }: GoalItemProps) => {
+const GoalItem = ({
+  title,
+  id,
+  onDeleteItem,
+  navigation,
+  goalData,
+}: GoalItemProps) => {
+
   return (
-    <View style={styles.goalItem}>
+    <View style={styles.task}>
       <Pressable
         android_ripple={{ color: "#210644" }}
         // onPress={onDeleteItem.bind(this, id)}
-        onPress={() => navigation.navigate("Goal Details")}
+        onPress={() => navigation.navigate("Details", { goalData })}
         // style={({ pressed }) => pressed && styles.pressedItem}
       >
-        <Text style={styles.goalText}>{text}</Text>
+        <View style={styles.heading}>
+          <Text style={styles.title}>{goalData.title}</Text>
+          <GoalStatus status={goalData.completed ? "complete" : "incomplete"} />
+        </View>
+        <Text style={styles.description} numberOfLines={2} ellipsizeMode="tail">
+          {goalData.description}
+        </Text>
       </Pressable>
     </View>
   );
@@ -25,16 +40,26 @@ const GoalItem = ({ text, id, onDeleteItem, navigation }: GoalItemProps) => {
 export default GoalItem;
 
 const styles = StyleSheet.create({
-  goalItem: {
-    margin: 8,
-    borderRadius: 6,
-    backgroundColor: "#5e0acc",
+  task: {
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderTopWidth: 0,
+    borderColor: "lightgrey",
+    // minHeight: 90,
   },
-  pressedItem: {
-    opacity: 0.5,
+  heading: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  goalText: {
-    color: "white",
-    padding: 8,
+  title: {
+    fontWeight: "600",
+    fontSize: 18,
+  },
+  description: {
+    color: "grey",
+    paddingTop: 5,
+    fontSize: 16,
   },
 });
