@@ -13,6 +13,13 @@
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo iusto commodi et praesentium dolorum minus distinctio, reiciendis obcaecati nam ullam recusandae aliquid sequi necessitatibus, quidem hic aut voluptatum odio sed.",
       "deadline": "02-23-2024",
       "completed": false
+    },
+    {
+      "id": "4bc088f6-48b1-4fb5-8885-4df7ff38fb9d",
+      "title": "New Goal",
+      "description": "New Description",
+      "deadline": "12-31-2022",
+      "completed": false
     }
   ]
 }
