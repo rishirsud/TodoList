@@ -36,20 +36,11 @@ const GoalItem = ({ navigation, goalData }: GoalItemProps) => {
     );
   };
 
-  // const RightActions = () => {
-  //   return (
-  //     <View style={styles.rightAction}>
-  //       <Button title="Edit" color="white" onPress={() => {}} />
-  //     </View>
-  //   );
-  // };
   return (
     <Swipeable
       renderLeftActions={LeftActions}
-      // renderRightActions={RightActions}
     >
       <Pressable
-        android_ripple={{ color: "#210644" }}
         onPress={() => navigation.navigate("Details", { goalData })}
       >
         <View style={styles.goal}>
@@ -59,7 +50,7 @@ const GoalItem = ({ navigation, goalData }: GoalItemProps) => {
           </View>
           <Text
             style={styles.description}
-            numberOfLines={1}
+            numberOfLines={2}
             ellipsizeMode="tail"
           >
             {goalData.description}

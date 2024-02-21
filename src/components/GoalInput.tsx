@@ -19,6 +19,7 @@ interface GoalInputProps {
 const GoalInput = ({ visible, onAddGoal, onCancel }: GoalInputProps) => {
   const [goalTitle, setGoalTitle] = useState<string>("");
   const [goalDescription, setGoalDescription] = useState<string>("");
+  //@todo Deadline date should be date picker following the format MM-DD-YYYY
   const [goalDeadline, setGoalDeadline] = useState<string>("");
 
   const addGoalHandler = () => {
@@ -62,12 +63,12 @@ const GoalInput = ({ visible, onAddGoal, onCancel }: GoalInputProps) => {
         />
         <TextInput
           style={styles.textInput}
-          placeholder="Deadline"
+          placeholder="Deadline (MM-DD-YYYY)"
           onChangeText={setGoalDeadline}
           value={goalDeadline}
         />
         <TextInput
-          style={styles.textInput}
+          style={styles.multiline}
           placeholder="Description"
           onChangeText={setGoalDescription}
           value={goalDescription}
@@ -79,7 +80,7 @@ const GoalInput = ({ visible, onAddGoal, onCancel }: GoalInputProps) => {
             <Button title="Cancel" onPress={onCancel} color="#f31282" />
           </View>
           <View style={styles.button}>
-            <Button title="Add Goal" onPress={addGoalHandler} color="#b180f0" />
+            <Button title="Add Goal" onPress={addGoalHandler} />
           </View>
         </View>
       </View>
@@ -95,17 +96,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
-    backgroundColor: "#311b6b",
+    backgroundColor: "lightblue",
   },
   textInput: {
     borderWidth: 1,
-    borderColor: "#e4d0ff",
-    backgroundColor: "#e4d0ff",
-    color: "#120438",
+    borderColor: "darkgrey",
+    backgroundColor: "white",
+    color: "grey",
     borderRadius: 6,
     width: "100%",
     padding: 16,
     marginBottom: 8,
+  },
+  multiline: {
+    borderWidth: 1,
+    borderColor: "darkgrey",
+    backgroundColor: "white",
+    color: "grey",
+    borderRadius: 6,
+    width: "100%",
+    padding: 16,
+    paddingTop: 16,
+    marginBottom: 8,
+    height: 100,
   },
   buttonContainer: {
     marginTop: 16,

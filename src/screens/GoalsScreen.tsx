@@ -61,14 +61,6 @@ const GoalsScreen = ({ navigation }: GoalsScreenProps) => {
     endAddGoalHandler();
   };
 
-  // const deleteGoalHandler = (id: string) => {
-  //   setCourseGoals((currentCourseGoals) => {
-  //     return currentCourseGoals.filter((goal: any) => goal.id !== id);
-  //   });
-  // };
-
-
-
   return (
     <>
       <StatusBar style="auto" />
@@ -95,7 +87,6 @@ const GoalsScreen = ({ navigation }: GoalsScreenProps) => {
         </View>
         <Button
           title="Add New Goal"
-          color="#a065ec"
           onPress={startAddGoalHandler}
         />
         <GoalInput
@@ -113,7 +104,6 @@ export default GoalsScreen;
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    // paddingHorizontal: 16,
     backgroundColor: "#fff",
   },
   goalsContainer: {
