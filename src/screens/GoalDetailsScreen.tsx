@@ -1,8 +1,23 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import GoalStatus from "../components/GoalStatus";
+import { useState } from "react";
 
 const GoalDetailsScreen = ({ route }: { route: any }) => {
   const { goalData } = route.params;
+
+  const [status, setStatus] = useState(goalData.completed);
+
+  const completeGoal = async () => {
+    await fetch("http://localhost:3000/tasks/" + goalData.id, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ completed: true }),
+    });
+    setStatus(true);
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -10,10 +25,11 @@ const GoalDetailsScreen = ({ route }: { route: any }) => {
         <Text style={styles.taskId}>ID: {goalData.id}</Text>
         <View style={styles.statusContainer}>
           <Text style={styles.deadline}>Deadline: {goalData.deadline}</Text>
-          <GoalStatus status={goalData.completed ? "complete" : "incomplete"} />
+          <GoalStatus status={status ? "complete" : "incomplete"} />
         </View>
         <Text style={styles.description}>{goalData.description}</Text>
       </View>
+      <Button title="Mark Complete" onPress={completeGoal} />
     </>
   );
 };

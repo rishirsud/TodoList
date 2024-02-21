@@ -1,38 +1,72 @@
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import { StyleSheet, View, Text, Pressable, Button } from "react-native";
 import GoalStatus from "./GoalStatus";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { useState } from "react";
 
 interface GoalItemProps {
-  title: string;
-  id: string;
-  onDeleteItem: (id: string) => void;
   navigation?: any;
   goalData: any;
 }
 
-const GoalItem = ({
-  title,
-  id,
-  onDeleteItem,
-  navigation,
-  goalData,
-}: GoalItemProps) => {
-  return (
-    <Pressable
-      android_ripple={{ color: "#210644" }}
-      // onPress={onDeleteItem.bind(this, id)}
-      onPress={() => navigation.navigate("Details", { goalData })}
-      // style={({ pressed }) => pressed && styles.pressedItem}
-    >
-      <View style={styles.goal}>
-        <View style={styles.heading}>
-          <Text style={styles.title}>{goalData.title}</Text>
-          <GoalStatus status={goalData.completed ? "complete" : "incomplete"} />
-        </View>
-        <Text style={styles.description} numberOfLines={2} ellipsizeMode="tail">
-          {goalData.description}
-        </Text>
+const GoalItem = ({ navigation, goalData }: GoalItemProps) => {
+  const [status, setStatus] = useState(goalData.completed);
+
+  const completeGoal = async () => {
+    await fetch("http://localhost:3000/tasks/" + goalData.id, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ completed: true }),
+    });
+    setStatus(true);
+  };
+
+  const LeftActions = () => {
+    return (
+      <View style={styles.leftAction}>
+        <Button
+          title="Done"
+          color="white"
+          onPress={() => {
+            completeGoal();
+          }}
+        />
       </View>
-    </Pressable>
+    );
+  };
+
+  // const RightActions = () => {
+  //   return (
+  //     <View style={styles.rightAction}>
+  //       <Button title="Edit" color="white" onPress={() => {}} />
+  //     </View>
+  //   );
+  // };
+  return (
+    <Swipeable
+      renderLeftActions={LeftActions}
+      // renderRightActions={RightActions}
+    >
+      <Pressable
+        android_ripple={{ color: "#210644" }}
+        onPress={() => navigation.navigate("Details", { goalData })}
+      >
+        <View style={styles.goal}>
+          <View style={styles.heading}>
+            <Text style={styles.title}>{goalData.title}</Text>
+            <GoalStatus status={status ? "complete" : "incomplete"} />
+          </View>
+          <Text
+            style={styles.description}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {goalData.description}
+          </Text>
+        </View>
+      </Pressable>
+    </Swipeable>
   );
 };
 
@@ -61,5 +95,13 @@ const styles = StyleSheet.create({
     color: "grey",
     paddingTop: 5,
     fontSize: 16,
+  },
+  leftAction: {
+    backgroundColor: "green",
+    justifyContent: "center",
+  },
+  rightAction: {
+    backgroundColor: "blue",
+    justifyContent: "center",
   },
 });

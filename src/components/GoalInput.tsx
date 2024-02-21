@@ -29,9 +29,26 @@ const GoalInput = ({ visible, onAddGoal, onCancel }: GoalInputProps) => {
       deadline: goalDeadline,
       completed: false,
     });
+    postGoal({
+      title: goalTitle,
+      description: goalDescription,
+      id: uuid.v4().toString(),
+      deadline: goalDeadline,
+      completed: false,
+    });
     setGoalTitle("");
     setGoalDescription("");
     setGoalDeadline("");
+  };
+
+  const postGoal = async (goal: GoalProps) => {
+    await fetch("http://localhost:3000/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(goal),
+    });
   };
 
   return (
