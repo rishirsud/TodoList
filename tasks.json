@@ -1,0 +1,32 @@
+{
+  "tasks": [
+    {
+      "id": "8b29eaa9-02b1-4e5d-877f-c6e15ccf1239",
+      "title": "Setup navigation",
+      "deadline": "02/18/2024",
+      "description": "desc 1",
+      "completed": false
+    },
+    {
+      "id": "ff13058d-25cf-4c0e-bf64-2a49f0a700f7",
+      "title": "Create a new screen",
+      "deadline": "02/20/2024",
+      "description": "desc 2",
+      "completed": false
+    },
+    {
+      "id": "ab778071-29db-4d77-937c-c59b2eaec265",
+      "title": "Add a button",
+      "deadline": "02/22/2024",
+      "description": "desc 3",
+      "completed": false
+    },
+    {
+      "id": "9725e389-4420-4e8d-a32c-68878a245dcd",
+      "title": "Add more buttonsr",
+      "deadline": "02/25/2024",
+      "description": "desc 4",
+      "completed": false
+    }
+  ]
+}
